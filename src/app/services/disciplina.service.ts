@@ -5,12 +5,12 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 const urlbase = environment.protocolo + '://' + environment.servidor + ':' + environment.porta + '/disciplina';
 const urlDisciplinas = urlbase + '/list';
 const urlDisciplina = urlbase;
-const urlContaPaginas = urlbase + '/contapaginas'
+const urlContaPaginas = urlbase + '/contapaginas';
 
 @Injectable()
 export class DisciplinaService {
@@ -22,11 +22,11 @@ export class DisciplinaService {
       .map(res => res.json());
   }
 
-  obtemDisciplina(id:number) {
+  obtemDisciplina(id: number) {
     return this.getServer(urlDisciplina.concat(id.toString()));
   }
 
-  obtemDisciplinas(pagina:number) {
+  obtemDisciplinas(pagina: number) {
     return this.getServer(urlDisciplinas.concat(pagina.toString()));
   }
 

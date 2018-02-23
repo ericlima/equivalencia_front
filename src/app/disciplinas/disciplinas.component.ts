@@ -1,3 +1,4 @@
+import { DisciplinaService } from './../services/disciplina.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DisciplinasComponent implements OnInit {
 
-  constructor() { }
+  public disciplinas = [];
+
+  constructor(
+    private service: DisciplinaService
+  ) { }
 
   ngOnInit() {
+    this.service.obtemDisciplinas(0).subscribe(res => this.disciplinas = res);
   }
+
+
 
 }
