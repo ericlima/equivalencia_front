@@ -12,7 +12,7 @@ import { DisciplinasComponent } from './disciplinas/disciplinas.component';
 import { IesComponent } from './ies/ies.component';
 
 import { IesService } from './services/ies.service';
-import { DisciplinaService } from './services/disciplina.service';
+import { DisciplinaService } from './services/disciplina.service';     
 
 @NgModule({
   declarations: [
