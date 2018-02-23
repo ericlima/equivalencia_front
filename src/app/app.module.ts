@@ -1,5 +1,3 @@
-import { IesService } from './services/ies.service';
-
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -11,21 +9,24 @@ import { CursosComponent } from './cursos/cursos.component';
 import { DisciplinasComponent } from './disciplinas/disciplinas.component';
 import { IesComponent } from './ies/ies.component';
 
-//import { DisciplinaService } from './services/disciplina.service';
+import { DisciplinaService } from './services/disciplina.service';
+import { IesService } from './services/ies.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     CursosComponent,
     DisciplinasComponent,
-    IesComponent,
-    //DisciplinaService
+    IesComponent
   ],
   imports: [
     BrowserModule,
-    RoutingModule
+    RoutingModule,
+    FormsModule,
+    HttpModule
   ],
-  providers: [DisciplinaService, IesService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

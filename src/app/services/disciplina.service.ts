@@ -8,7 +8,7 @@ import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
 
 const urlbase = environment.protocolo + '://' + environment.servidor + ':' + environment.porta + '/disciplina';
-const urlDisciplinas = urlbase + '/list';
+const urlDisciplinas = urlbase + '/ies/{ies}/list/{pagina}';
 const urlDisciplina = urlbase;
 const urlContaPaginas = urlbase + '/contapaginas';
 
@@ -26,8 +26,12 @@ export class DisciplinaService {
     return this.getServer(urlDisciplina.concat(id.toString()));
   }
 
-  obtemDisciplinas(pagina: number) {
-    return this.getServer(urlDisciplinas.concat(pagina.toString()));
+  obtemDisciplinas(ies: number, pagina: number) {
+    return this.getServer(
+      urlDisciplinas
+      .replace('{ies}', ies.toString())
+      .replace('{pagina}', pagina.toString())
+    );
   }
 
   contaPaginas() {
