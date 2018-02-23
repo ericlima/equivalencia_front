@@ -35,7 +35,7 @@ export class CursoService {
     return this.getServer(urlcursoLista.concat(pagina.toString()));
   }
 
-  contaPaginas(paginas:number) {
+  contaPaginas() {
     return this.getServer(urlPaginas);
   }
 }
