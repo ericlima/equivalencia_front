@@ -1,3 +1,4 @@
+import { IesService } from './services/ies.service';
 import { DisciplinaService } from './services/disciplina.service';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -21,7 +22,7 @@ import { IesComponent } from './ies/ies.component';
     BrowserModule,
     RoutingModule
   ],
-  providers: [DisciplinaService],
+  providers: [DisciplinaService, IesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
