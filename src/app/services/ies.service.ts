@@ -9,6 +9,9 @@ import { Observable } from 'rxjs/Observable';
 
 const urlbase = environment.protocolo + '://' + environment.servidor + ':' + environment.porta + '/ies';
 const urlIesCombo = urlbase + '/combo';
+const urlIesLita: string = urlbase + "/ies/lista";
+const urlPaginas: string = urlbase + "/ies/contapaginas";
+const urlIes: string = urlbase + "/ies/";
 
 @Injectable()
 export class IesService {
@@ -23,4 +26,18 @@ export class IesService {
   obterIesCombo() {
     return this.getServer(urlIesCombo);
   }
+
+  obtemIes(id:number) {
+    return this.getServer(urlIes.concat(id.toString()));
+  }
+
+  obtemListaIes(pagina:number) {
+    return this.getServer(urlIesLita.concat(pagina.toString()));
+  }
+
+  contaPaginas(paginas:number) {
+    return this.getServer(urlPaginas);
+  }
+
+
 }

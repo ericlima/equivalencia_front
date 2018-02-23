@@ -1,14 +1,17 @@
 import { IesService } from './services/ies.service';
-import { DisciplinaService } from './services/disciplina.service';
+
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RoutingModule } from './app.router';
 
 import { AppComponent } from './app.component';
+
 import { CursosComponent } from './cursos/cursos.component';
 import { DisciplinasComponent } from './disciplinas/disciplinas.component';
 import { IesComponent } from './ies/ies.component';
+
+//import { DisciplinaService } from './services/disciplina.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,7 @@ import { IesComponent } from './ies/ies.component';
     CursosComponent,
     DisciplinasComponent,
     IesComponent,
-    DisciplinaService
+    //DisciplinaService
   ],
   imports: [
     BrowserModule,

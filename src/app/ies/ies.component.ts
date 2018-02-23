@@ -12,7 +12,7 @@ import { IesService } from '../services/ies.service';
 export class IesComponent implements OnInit {
 
   ies = {};
-  cidades: any[] = [];
+  listaIes: any[] = [];
   
 
   constructor() { }
