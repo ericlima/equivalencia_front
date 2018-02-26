@@ -9,9 +9,10 @@ import { Observable } from 'rxjs/Observable';
 
 const urlbase = environment.protocolo + '://' + environment.servidor + ':' + environment.porta + '/ies';
 const urlIesCombo = urlbase + '/combo/';
-const urlIesLita: string = urlbase + '/lista';
-const urlPaginas: string = urlbase + '/ies/contapaginas';
-const urlIes: string = urlbase + '/ies/';
+const urlIesLista: string = urlbase + '/list/';
+const urlPaginas: string = urlbase + '/contapaginas';
+const urlIes: string = urlbase;
+const urlBuscaPorNome = urlbase + '/nome/{nome}/pagina/{pagina}';
 
 @Injectable()
 export class IesService {
@@ -32,12 +33,21 @@ export class IesService {
   }
 
   obtemListaIes(pagina: number) {
-    return this.getServer(urlIesLita.concat(pagina.toString()));
+    return this.getServer(urlIesLista.concat(pagina.toString()));
   }
 
-  contaPaginas(paginas: number) {
+  contaPaginas() {
     return this.getServer(urlPaginas);
   }
 
+  buscaPorNome(nome: string, pagina: number) {
+    console.log(nome);
+    return this.getServer(
+      urlBuscaPorNome
+      .replace('{nome}', nome)
+      .replace('{pagina}', pagina.toString())      
+    );
+
+  }
 
 }
