@@ -1,6 +1,6 @@
+import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { RoutingModule } from './app.router';
 
 import { AppComponent } from './app.component';
@@ -12,6 +12,7 @@ import { IesComponent } from './ies/ies.component';
 import { DisciplinaService } from './services/disciplina.service';
 import { IesService } from './services/ies.service';
 import { FormsModule } from '@angular/forms';
+import { CursoService } from './services/curso.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [DisciplinaService, IesService, CursoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

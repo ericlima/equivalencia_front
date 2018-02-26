@@ -1,3 +1,39 @@
-<p>
-  cursos works!
-</p>
+<div class="container">
+
+    <div class="col-sm-10">
+        <table class="table table-hover table-sm justify-content-center">
+            <thead>
+                <tr>              
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">IES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let c of cursos">
+                    <th scope="row">{{c.id}}</th>              
+                    <th scope="row"><a (click)="selecionaCidade(c.id)">{{c.nome}}</a></th>              
+                    <th>{{c.idIes}}</th>
+                </tr>
+            </tbody>
+        </table>
+      
+        <nav aria-label="...">
+          <ul class="pagination pagination-sm justify-content-center">
+              <li class="page-item">
+                  <a class="page-link" (click)="anterior()">Previous</a>
+              </li>
+              <li class="page-item " *ngFor="let pag of paginacao">
+                  <a class="page-link" (click)="paginado(pag)">{{pag + 1}}</a>
+              </li>
+              <li class="page-item">
+                  <a class="page-link" (click)="proximo()">Next</a>
+              </li>
+          </ul>
+      </nav>
+    </div>
+  
+
+</div>
+
+
