@@ -40,7 +40,7 @@ export class DisciplinaService {
     return this.getServer(
       urlBuscaPorNome
       .replace('{nome}', nome)
-      .replace('{pagina}', pagina.toString())      
+      .replace('{pagina}', pagina.toString())
     );
 
   }

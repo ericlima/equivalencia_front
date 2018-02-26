@@ -20,7 +20,8 @@ export class DisciplinasComponent implements OnInit {
   public disciplina = {};
   public selecionado = 0;
   public pagina = 1;
-  public pesquisaPorNome = "";
+  public pesquisaPorNome = '';
+  public confirmacao = false;
 
   constructor(
     private service: DisciplinaService,
@@ -34,6 +35,8 @@ export class DisciplinasComponent implements OnInit {
   onSearchChange(searchValue: string) {
     if (searchValue.length > 3) {
       this.pesquisaPorNome = searchValue;
+    } else {
+      this.pesquisaPorNome = '';
     }
     this.cargaPagina();
   }
@@ -43,16 +46,17 @@ export class DisciplinasComponent implements OnInit {
   }
 
   onChangeDisc() {
+    this.pagina = 1;
+    this.pesquisaPorNome = '';
     this.cargaPagina();
-    // this.service.obtemDisciplina(this.disciplinas[0]).subscribe(res => this.disciplina = res);
   }
 
   cargaPagina() {
     if (this.pesquisaPorNome.length > 3) {
-      this.service.buscaPorNome(this.pesquisaPorNome, this.pagina-1).subscribe(res => this.disciplinas = res);
+      this.service.buscaPorNome(this.pesquisaPorNome, this.pagina - 1).subscribe(res => this.disciplinas = res);
     } else {
-      this.service.obtemDisciplinas(this.iesSelecionada, this.pagina-1).subscribe(res => this.disciplinas = res);
-    }    
+      this.service.obtemDisciplinas(this.iesSelecionada, this.pagina - 1).subscribe(res => this.disciplinas = res);
+    }
   }
 
   proximo() {
