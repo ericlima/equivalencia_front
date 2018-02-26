@@ -19,7 +19,8 @@ export class DisciplinasComponent implements OnInit {
   public disciplinas = [];
   public disciplina = {};
   public selecionado = 0;
-  public pagina = 0;
+  public pagina = 1;
+  public pesquisaPorNome = "";
 
   constructor(
     private service: DisciplinaService,
@@ -28,6 +29,13 @@ export class DisciplinasComponent implements OnInit {
 
   ngOnInit() {
     this.iesService.obterIesCombo().subscribe(res => this.iesList = res);
+  }
+
+  onSearchChange(searchValue: string) {
+    if (searchValue.length > 3) {
+      this.pesquisaPorNome = searchValue;
+    }
+    this.cargaPagina();
   }
 
   selecionaDisciplina(id: number) {
@@ -40,7 +48,11 @@ export class DisciplinasComponent implements OnInit {
   }
 
   cargaPagina() {
-    this.service.obtemDisciplinas(this.iesSelecionada, this.pagina).subscribe(res => this.disciplinas = res);
+    if (this.pesquisaPorNome.length > 3) {
+      this.service.buscaPorNome(this.pesquisaPorNome, this.pagina-1).subscribe(res => this.disciplinas = res);
+    } else {
+      this.service.obtemDisciplinas(this.iesSelecionada, this.pagina-1).subscribe(res => this.disciplinas = res);
+    }    
   }
 
   proximo() {
@@ -49,7 +61,7 @@ export class DisciplinasComponent implements OnInit {
   }
 
   anterior() {
-    if (this.pagina > 0) {
+    if (this.pagina > 1) {
       this.pagina--;
       this.cargaPagina();
     }

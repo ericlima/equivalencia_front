@@ -8,8 +8,8 @@ import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
 
 const urlbase = environment.protocolo + '://' + environment.servidor + ':' + environment.porta + '/ies';
-const urlIesCombo = urlbase + '/combo';
-const urlIesLita: string = urlbase + '/ies/lista';
+const urlIesCombo = urlbase + '/combo/';
+const urlIesLita: string = urlbase + '/lista';
 const urlPaginas: string = urlbase + '/ies/contapaginas';
 const urlIes: string = urlbase + '/ies/';
 

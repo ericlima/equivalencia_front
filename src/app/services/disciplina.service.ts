@@ -11,6 +11,7 @@ const urlbase = environment.protocolo + '://' + environment.servidor + ':' + env
 const urlDisciplinas = urlbase + '/ies/{ies}/list/{pagina}';
 const urlDisciplina = urlbase;
 const urlContaPaginas = urlbase + '/contapaginas';
+const urlBuscaPorNome = urlbase + '/nome/{nome}/pagina/{pagina}';
 
 @Injectable()
 export class DisciplinaService {
@@ -32,6 +33,16 @@ export class DisciplinaService {
       .replace('{ies}', ies.toString())
       .replace('{pagina}', pagina.toString())
     );
+  }
+
+  buscaPorNome(nome: string, pagina: number) {
+    console.log(nome);
+    return this.getServer(
+      urlBuscaPorNome
+      .replace('{nome}', nome)
+      .replace('{pagina}', pagina.toString())      
+    );
+
   }
 
   contaPaginas() {

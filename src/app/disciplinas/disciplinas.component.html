@@ -14,7 +14,13 @@
               <span class="input-group-addon">
                 <i class="glyphicon glyphicon-search"></i>
               </span>
-              <input name="consulta" id="txt_consulta" placeholder="Consultar por Nome" type="text" class="form-control">
+              <input name="consulta" 
+              id="txt_consulta" 
+              placeholder="Consultar por Nome" 
+              type="text" 
+              class="form-control"
+              (input)="onSearchChange($event.target.value.toUpperCase())"
+              >
             </div>
           </div>
           <div class="col-sm-6 col-sm-offset-3 ">
@@ -58,6 +64,7 @@
     <nav aria-label="...">
       <ul class="pager">
         <li><a (click)="anterior()" >Anterior</a></li>
+        <li><input [(ngModel)]="pagina" class="text-center" style="width: 50px"/></li>
         <li><a (click)="proximo()" >Próximo</a></li>
       </ul>
     </nav>
