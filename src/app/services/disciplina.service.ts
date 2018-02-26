@@ -1,6 +1,6 @@
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, RequestOptions, Headers } from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -23,8 +23,22 @@ export class DisciplinaService {
       .map(res => res.json());
   }
 
+  salvarDisciplina(disciplina) {
+
+    let bodyString = JSON.stringify(disciplina);
+
+    let headers      = new Headers({ 'Content-Type': 'application/json' });
+
+    let options       = new RequestOptions({ headers: headers }); // Create a request option
+
+    this.http.post(urlbase, bodyString, options) // ...using post request
+                     .map(res => res.json()) // ...and calling .json() on the response to return data
+                     .catch((error: any) => Observable.throw(error.json().error || 'Server error')) //...errors if
+                     .subscribe();
+  }
+
   obtemDisciplina(id: number) {
-    return this.getServer(urlDisciplina.concat(id.toString()));
+    return this.getServer(urlDisciplina.concat('/').concat(id.toString()));
   }
 
   obtemDisciplinas(ies: number, pagina: number) {

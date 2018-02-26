@@ -10,6 +10,7 @@ import { DisciplinasComponent } from './disciplinas/disciplinas.component';
 import { IesComponent } from './ies/ies.component';
 
 import { DisciplinaService } from './services/disciplina.service';
+import { DisciplinapadraoService } from './services/disciplinapadrao.service';
 import { IesService } from './services/ies.service';
 import { FormsModule } from '@angular/forms';
 import { CursoService } from './services/curso.service';
@@ -27,7 +28,7 @@ import { CursoService } from './services/curso.service';
     FormsModule,
     HttpModule
   ],
-  providers: [DisciplinaService, IesService, CursoService],
+  providers: [DisciplinaService, IesService, CursoService, DisciplinapadraoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
