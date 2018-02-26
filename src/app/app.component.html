@@ -1,8 +1,9 @@
 <ul class="nav nav-tabs">
-  <li role="presentation" class="active"><a href="ies">IES</a></li>
-  <li role="presentation"><a href="cursos">Cursos</a></li>
-  <li role="presentation"><a href="disciplinas">Disciplinas</a></li>
+  <li role="presentation" [ngClass]="aba===1 ? 'active':''"><a (click)="seleciona(1)" [routerLink]="['/ies']">IES</a></li>
+  <li role="presentation" [ngClass]="aba===2 ? 'active':''"><a (click)="seleciona(2)" [routerLink]="['/cursos']">Cursos</a></li>
+  <li role="presentation" [ngClass]="aba===3 ? 'active':''"><a (click)="seleciona(3)" [routerLink]="['/disciplinas']">Disciplinas</a></li>
 </ul>
 
 <p></p>
+
 <router-outlet></router-outlet>

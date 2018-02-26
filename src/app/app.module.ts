@@ -9,8 +9,9 @@ import { CursosComponent } from './cursos/cursos.component';
 import { DisciplinasComponent } from './disciplinas/disciplinas.component';
 import { IesComponent } from './ies/ies.component';
 
+import { DisciplinaService } from './services/disciplina.service';
 import { IesService } from './services/ies.service';
-import { DisciplinaService } from './services/disciplina.service';     
+import { FormsModule } from '@angular/forms';
 import { CursoService } from './services/curso.service';
 
 @NgModule({
@@ -18,12 +19,13 @@ import { CursoService } from './services/curso.service';
     AppComponent,
     CursosComponent,
     DisciplinasComponent,
-    IesComponent    
+    IesComponent
   ],
   imports: [
     BrowserModule,
     RoutingModule,
-    HttpModule 
+    FormsModule,
+    HttpModule
   ],
   providers: [DisciplinaService, IesService, CursoService],
   bootstrap: [AppComponent]
