@@ -8,10 +8,10 @@ import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
 
 const urlbase = environment.protocolo + '://' + environment.servidor + ':' + environment.porta + '/curso';
-const urlcursoCombo = urlbase + '/combo';
-const urlcursoLista: string = urlbase + "/list/";
-const urlPaginas: string = urlbase + "/contapaginas";
-const urlCurso: string = urlbase + "/";
+const urlCursos = urlbase + '/ies/{ies}/list/{pagina}';
+const urlCurso = urlbase;
+const urlContaPaginas = urlbase + '/contapaginas';
+const urlBuscaPorNome = urlbase + '/nome/{nome}/pagina/{pagina}';
 
 @Injectable()
 export class CursoService {
@@ -23,19 +23,29 @@ export class CursoService {
       .map(res => res.json());
   }
 
-  obterCursoCombo() {
-    return this.getServer(urlcursoCombo);
-  }
-
-  obtemCurso(id:number) {
+  obtemCurso(id: number) {
     return this.getServer(urlCurso.concat(id.toString()));
   }
 
-  obtemListaCurso(pagina:number) {
-    return this.getServer(urlcursoLista.concat(pagina.toString()));
+  obtemCursos(ies: number, pagina: number) {
+    return this.getServer(
+      urlCursos
+        .replace('{ies}', ies.toString())
+        .replace('{pagina}', pagina.toString())
+    );
+  }
+
+  buscaPorNome(nome: string, pagina: number) {
+    console.log(nome);
+    return this.getServer(
+      urlBuscaPorNome
+        .replace('{nome}', nome)
+        .replace('{pagina}', pagina.toString())
+    );
+
   }
 
   contaPaginas() {
-    return this.getServer(urlPaginas);
+    return this.getServer(urlContaPaginas);
   }
 }
