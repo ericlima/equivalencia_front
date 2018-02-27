@@ -71,7 +71,6 @@ export class DisciplinasComponent implements OnInit {
   }
 
   associa(id: number, posicao: number) {
-
     this.service.associa(id).subscribe();
     this.service.obtemDisciplina(id).subscribe(res => this.disciplina = res),
     this.disciplinas[posicao].idDisciplinaPadrao = this.disciplina.id,
@@ -102,21 +101,36 @@ export class DisciplinasComponent implements OnInit {
     this.disciplinaPadrao = {'id': 0, 'nome': '', 'cargaHoraria': 0},
     this.pesquisaPorNomePadrao = '',
     this.disciplinasPadrao = [];
-    console.log('zeraParametros');
+    return this;
   }
 
   confirmaEdicao() {
-    Promise.all([
-    this.service.salvarDisciplina(this.disciplinas[this.disciplinaPosicaoArray]),
-    this.confirmacao = 0,
-    this.disciplina = {'id': 0, 'nome': '', 'cargaHoraria': 0},
-    this.disciplinaPosicaoArray = 0,
-    this.confirmacao = 0,
-    this.disciplinaPadrao = {'id': 0, 'nome': '', 'cargaHoraria': 0},
-    this.pesquisaPorNomePadrao = '',
-    this.disciplinasPadrao = [],
-    this.cargaPagina(),
-    console.log('confirmaEdicao')]);
+    this.salvaDisciplina()
+    .limpaConfirmacao()
+    .buildaDisciplina(this.disciplinaPadrao);
+  }
+
+  salvaDisciplina() {
+    this.service.salvarDisciplina(this.disciplinas[this.disciplinaPosicaoArray]);
+    console.log('1');
+    return this;
+  }
+
+  limpaConfirmacao() {
+    this.confirmacao = 0;
+    console.log('2');
+    return this;
+  }
+
+  limpaDisciplina() {
+    this.disciplina = {'id': 0, 'nome': '', 'cargaHoraria': 0};
+    this.disciplinaPosicaoArray = 0;
+    this.confirmacao = 0;
+    this.disciplinaPadrao = {'id': 0, 'nome': '', 'cargaHoraria': 0};
+    this.pesquisaPorNomePadrao = '';
+    this.disciplinasPadrao = [];
+    console.log('2');
+    return this;
   }
 
   cargaPagina() {
@@ -125,7 +139,8 @@ export class DisciplinasComponent implements OnInit {
     } else {
       this.service.obtemDisciplinas(this.iesSelecionada, this.pagina - 1).subscribe(res => this.disciplinas = res);
     }
-    console.log('cargaPagina');
+    console.log('3');
+    return this;
   }
 
   cargaPaginaPadrao() {
@@ -146,6 +161,7 @@ export class DisciplinasComponent implements OnInit {
     this.disciplinas[this.disciplinaPosicaoArray].idDisciplinaPadrao = disciplinaPadrao.id,
     this.disciplinas[this.disciplinaPosicaoArray].nomeDisciplinaPadrao = disciplinaPadrao.nome,
     this.disciplinas[this.disciplinaPosicaoArray].cargaHorariaDisciplinaPadrao = disciplinaPadrao.cargaHoraria;
+    return this;
   }
 
   proximo() {

@@ -50,7 +50,6 @@ export class DisciplinaService {
   }
 
   buscaPorNome(nome: string, pagina: number) {
-    console.log(nome);
     return this.getServer(
       urlBuscaPorNome
       .replace('{nome}', nome)
@@ -60,7 +59,6 @@ export class DisciplinaService {
   }
 
   associa(id: number) {
-    console.log(id);
     return this.getServer(urlAssocia.replace('{id}', id.toString()));
   }
 
