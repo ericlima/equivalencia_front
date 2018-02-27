@@ -6,9 +6,9 @@
 export const environment = {
   production: false,
 
-  protocolo: "http",
-  servidor: "localhost",
-  porta: "4041"
+  protocolo: 'http',
+  servidor: 'localhost',
+  porta: '4041'
 
 
 };

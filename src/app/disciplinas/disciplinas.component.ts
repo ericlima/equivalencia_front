@@ -72,14 +72,14 @@ export class DisciplinasComponent implements OnInit {
 
   associa(id: number, posicao: number) {
 
-    Promise.all([
-    this.service.associa(id).subscribe(),
+    this.service.associa(id).subscribe();
     this.service.obtemDisciplina(id).subscribe(res => this.disciplina = res),
     this.disciplinas[posicao].idDisciplinaPadrao = this.disciplina.id,
-    this.disciplinas[posicao].nomeDisciplinaPadrao = this.disciplina.nome,
-    this.disciplinas[posicao].cargaHorariaDisciplinaPadrao = this.disciplina.cargaHoraria
-    ]);
+    this.disciplinas[posicao].nomeDisciplinaPadrao = this.disciplina.nome;
+    this.disciplinas[posicao].cargaHorariaDisciplinaPadrao = this.disciplina.cargaHoraria;
   }
+
+
 
   onChangeIes() {
     this.pagina = 1,
