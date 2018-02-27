@@ -1,6 +1,6 @@
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, RequestOptions, Headers } from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -23,8 +23,22 @@ export class CursoService {
       .map(res => res.json());
   }
 
+  salvarCurso(curso) {
+
+    let bodyString = JSON.stringify(curso);
+
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+
+    let options = new RequestOptions({ headers: headers }); // Create a request option
+
+    this.http.post(urlbase, bodyString, options) // ...using post request
+      .map(res => res.json()) // ...and calling .json() on the response to return data
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error')) //...errors if
+      .subscribe();
+  }
+
   obtemCurso(id: number) {
-    return this.getServer(urlCurso.concat(id.toString()));
+    return this.getServer(urlCurso.concat('/').concat(id.toString()));
   }
 
   obtemCursos(ies: number, pagina: number) {
@@ -48,4 +62,5 @@ export class CursoService {
   contaPaginas() {
     return this.getServer(urlContaPaginas);
   }
+
 }
