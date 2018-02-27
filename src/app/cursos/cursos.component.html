@@ -1,72 +1,161 @@
+<!-- Modal -->
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel1">{{curso.id}} - {{curso.nome}}</h4>        
+      </div>
+      <div class="modal-body" style="height: 30em;">
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3">
+            <div class="form-group input-group">
+              <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+              </span>
+              <input name="consultaPadrao" id="txt_consultaPadrao" placeholder="Consultar por Nome" type="text" class="form-control" [(ngModel)]="pesquisaPorNomePadrao"
+                (input)="onSearchChangeStandard($event.target.value.toUpperCase())">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="table">
+              <table class="table table-striped table-condensed table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th class="col-xs-1">#</th>
+                    <th class="col-xs-3">Nome</th>                    
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let curPadrao of cursosPadrao">
+                    <td>{{curPadrao.id}}</td>
+                    <td style="white-space: nowrap; max-width: 380px; overflow:hidden; text-overflow: ellipsis; "
+                      title='{{curPadrao.nome}}'
+                      >
+                      <a (click)="atribuirCursoPadrao(curPadrao)"
+                        data-dismiss="modal" >
+                        {{curPadrao.nome}}
+                      </a>
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+       </div>
+       <div class="modal-footer">
+          <nav aria-label="...">
+              <ul class="pager">
+                <li>
+                  <a (click)="anteriorPadrao()">Anterior</a>
+                </li>
+                <li>
+                  <input [(ngModel)]="paginaPadrao" class="text-center" style="width: 50px" />
+                </li>
+                <li>
+                  <a (click)="proximoPadrao()">Próximo</a>
+                </li>
+              </ul>
+            </nav>
+
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-12">
-              <h1 class="page-header">Cursos</h1>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <h1 class="page-header">Cursos</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group input-group">
+              <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+              </span>
+              <input name="consulta" id="txt_consulta" placeholder="Consultar por Nome" type="text" class="form-control" [(ngModel)]="pesquisaPorNome"
+                (input)="onSearchChange($event.target.value.toUpperCase())">
             </div>
           </div>
-          <div class="row">
-            <div class="col-sm-3">
-              <div class="form-group input-group">
-                <span class="input-group-addon">
-                  <i class="glyphicon glyphicon-search"></i>
-                </span>
-                <input name="consulta" 
-                id="txt_consulta" 
-                placeholder="Consultar por Nome" 
-                type="text" 
-                class="form-control"
-                [value]="pesquisaPorNome"
-                (input)="onSearchChange($event.target.value.toUpperCase())"
-                >
-              </div>
-            </div>
-            <div class="col-sm-6 col-sm-offset-3 ">
-              <div class="form-group input-group">
-                <span class="input-group-addon">IES</span>
-                <select class="custom-select custom-select-lg mb-12" [(ngModel)]="iesSelecionada" (change)="onChangeCurso()" class="form-control">
-                  <option *ngFor="let ies of iesList" [value]="ies.id">{{'[' + ies.id + '] ' + ies.nome}}</option>
-                </select>
-              </div>
+          <div class="col-sm-6 col-sm-offset-3 ">
+            <div class="form-group input-group">
+              <span class="input-group-addon">IES</span>
+              <select class="custom-select custom-select-lg mb-12" [(ngModel)]="iesSelecionada" (change)="onChangeIes()" class="form-control">
+                <option *ngFor="let ies of iesList" [value]="ies.id">{{'[' + ies.id + '] ' + ies.nome}}</option>
+              </select>
             </div>
           </div>
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="table-responsive">
-                <table class="table table-striped table-condensed table-bordered table-hover">
-                  <thead>
-                    <tr>
-                      <th class="col-sm-1">#</th>
-                      <th class="col-sm-3">Nome</th>                      
-                      <th class="col-sm-1">IES</th>
-                      <th class="col-sm-1"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let curso of cursos" >
-                      <td>{{curso.id}}</td>
-                      <td>{{curso.nome}}</td>
-                      <td>{{curso.idIes}}</td>                    
-                      <td>(lupa)</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="table">
+              <table class="table table-striped table-condensed table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th class="col-xs-1">#</th>
+                    <th class="col-xs-3">Nome</th>                    
+                    <th class="col-xs-3">Curso Equivalencia</th>                    
+                    <th class="col-xs-1"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let cur of cursos; let i = index">
+                    <td>{{cur.id}}</td>
+                    <td style="white-space: nowrap; max-width: 380px; overflow:hidden; text-overflow: ellipsis; " title='{{cur.nome}}'>{{cur.nome}}</td>                    
+                    <td>{{cur.nomeCursoPadrao}}</td>                    
+                    <td>
+                      <span *ngIf="confirmacao == 0">
+                        <span class="glyphicon glyphicon-search"
+                        aria-hidden="true"
+                        data-toggle="modal"
+                        data-target="#myModal"
+                        (click)="selecionaCurso(cur.id,i)"></span>
+                        <span *ngIf="cur.idCursoPadrao == null || cur.idCursoPadrao == 0">
+                          <span class="glyphicon glyphicon-plus"
+                            aria-hidden="true" (click)="associa(cur.id,i)"></span>
+                        </span>
+                        <span *ngIf="cur.idCursoPadrao != null && cur.idCursoPadrao > 0">
+                          <span class="glyphicon glyphicon-minus"
+                                aria-hidden="true" (click)="desassocia(cur.id,i)" >
+                          </span>
+                        </span>
+                      </span>
+                      <span *ngIf="confirmacao == cur.id">
+                        <span class="glyphicon glyphicon-ok text-success" aria-hidden="true" (click)="confirmaEdicao()"></span>
+                        <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true" (click)="zeraParametros()"></span>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
-  
-      <nav aria-label="...">
-        <ul class="pager">
-          <li><a (click)="anterior()" >Anterior</a></li>
-          <li><input [(ngModel)]="pagina" class="text-center" style="width: 50px"/></li>
-          <li><a (click)="proximo()" >Próximo</a></li>
-        </ul>
-      </nav>
-  
-      {{pagina}}
-  
+    </div>
+
+    <nav aria-label="...">
+      <ul class="pager">
+        <li>
+          <a (click)="anterior()">Anterior</a>
+        </li>
+        <li>
+          <input [(ngModel)]="pagina" class="text-center" style="width: 50px" />
+        </li>
+        <li>
+          <a (click)="proximo()">Próximo</a>
+        </li>
+      </ul>
+    </nav>
+
+{{confirmacao}}
