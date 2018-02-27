@@ -66,18 +66,19 @@ export class DisciplinasComponent implements OnInit {
   }
 
   desassocia(id: number, posicao: number) {
-    this.disciplinaPosicaoArray = posicao,
-    this.disciplinaPadrao = {'id': 0, 'nome': '', 'cargaHoraria': 0},
-    this.confirmacao = id,
-    this.disciplinas[posicao].idDisciplinaPadrao = 0;
+    this.service.desassocia(id).subscribe();
+    this.cargaPagina();
   }
 
   associa(id: number, posicao: number) {
-    console.log(this.servicePadrao.salvarDisciplina(this.disciplinas[this.disciplinaPosicaoArray]));
-    this.disciplinaPosicaoArray = posicao;
-    this.disciplinaPadrao = this.disciplinas[posicao];
-    this.confirmacao = id;
-    this.disciplinas[posicao].idDisciplinaPadrao = id;
+
+    Promise.all([
+    this.service.associa(id).subscribe(),
+    this.service.obtemDisciplina(id).subscribe(res => this.disciplina = res),
+    this.disciplinas[posicao].idDisciplinaPadrao = this.disciplina.id,
+    this.disciplinas[posicao].nomeDisciplinaPadrao = this.disciplina.nome,
+    this.disciplinas[posicao].cargaHorariaDisciplinaPadrao = this.disciplina.cargaHoraria
+    ]);
   }
 
   onChangeIes() {

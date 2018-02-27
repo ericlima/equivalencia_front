@@ -12,6 +12,8 @@ const urlDisciplinas = urlbase + '/ies/{ies}/list/{pagina}';
 const urlDisciplina = urlbase;
 const urlContaPaginas = urlbase + '/contapaginas';
 const urlBuscaPorNome = urlbase + '/nome/{nome}/pagina/{pagina}';
+const urlAssocia = urlbase + '/autoassociacao/{id}';
+const urlDesassocia = urlbase + '/desassocia/{id}';
 
 @Injectable()
 export class DisciplinaService {
@@ -25,15 +27,13 @@ export class DisciplinaService {
 
   salvarDisciplina(disciplina) {
 
-    let bodyString = JSON.stringify(disciplina);
+    const headers      = new Headers({ 'Content-Type': 'application/json' });
 
-    let headers      = new Headers({ 'Content-Type': 'application/json' });
+    const options       = new RequestOptions({ headers: headers });
 
-    let options       = new RequestOptions({ headers: headers }); // Create a request option
-
-    this.http.post(urlbase, bodyString, options) // ...using post request
-                     .map(res => res.json()) // ...and calling .json() on the response to return data
-                     .catch((error: any) => Observable.throw(error.json().error || 'Server error')) //...errors if
+    this.http.post(urlbase, JSON.stringify(disciplina), options)
+                     .map(res => res.json())
+                     .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
                      .subscribe();
   }
 
@@ -57,6 +57,15 @@ export class DisciplinaService {
       .replace('{pagina}', pagina.toString())
     );
 
+  }
+
+  associa(id: number) {
+    console.log(id);
+    return this.getServer(urlAssocia.replace('{id}', id.toString()));
+  }
+
+  desassocia(id: number) {
+    return this.getServer(urlDesassocia.replace('{id}', id.toString()));
   }
 
   contaPaginas() {
