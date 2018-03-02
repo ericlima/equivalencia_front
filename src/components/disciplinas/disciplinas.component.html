@@ -78,7 +78,7 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
-            <h1 class="page-header">Disciplinas</h1>
+            <h1 class="page-header" style="font-family: stag, Times, Baskerville, Georgia, serif" >Disciplinas</h1>
           </div>
         </div>
         <div class="row">
@@ -139,8 +139,8 @@
                         </span>
                       </span>
                       <span *ngIf="confirmacao == disc.id">
-                        <span class="glyphicon glyphicon-ok text-success" aria-hidden="true" (click)="confirmaEdicao()"></span>
-                        <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true" (click)="zeraParametros()"></span>
+                        <span class="glyphicon glyphicon-ok text-success" aria-hidden="true" (click)="confirmaEdicao(disc.id,i)"></span>
+                        <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true" (click)="cancelaEdicao(i)"></span>
                       </span>
                     </td>
                   </tr>

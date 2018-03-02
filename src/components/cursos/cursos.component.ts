@@ -1,7 +1,7 @@
 import { Ies } from './../classes/ies';
-import { IesService } from './../services/ies.service';
-import { CursoService } from './../services/curso.service';
-import { CursopadraoService } from './../services/cursopadrao.service';
+import { IesService } from '../../provider/ies.service';
+import { CursoService } from '../../provider/curso.service';
+import { CursopadraoService } from '../../provider/cursopadrao.service';
 import { Http, Response } from '@angular/http';
 import { Component, OnInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
@@ -143,7 +143,7 @@ export class CursosComponent implements OnInit {
 
   buildaCurso(cursoPadrao) {
     this.cursos[this.cursoPosicaoArray].idCursoPadrao = cursoPadrao.id,
-    this.cursos[this.cursoPosicaoArray].nomeCursoPadrao = cursoPadrao.nome    
+    this.cursos[this.cursoPosicaoArray].nomeCursoPadrao = cursoPadrao.nome;
   }
 
   proximo() {

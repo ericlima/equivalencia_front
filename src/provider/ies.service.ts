@@ -1,4 +1,4 @@
-import { environment } from './../../environments/environment';
+import { environment } from '../environments/environment';
 import { Injectable, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
@@ -45,7 +45,7 @@ export class IesService {
     return this.getServer(
       urlBuscaPorNome
       .replace('{nome}', nome)
-      .replace('{pagina}', pagina.toString())      
+      .replace('{pagina}', pagina.toString())
     );
 
   }

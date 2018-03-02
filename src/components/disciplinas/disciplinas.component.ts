@@ -1,7 +1,7 @@
-import { Ies } from './../classes/ies';
-import { IesService } from './../services/ies.service';
-import { DisciplinaService } from './../services/disciplina.service';
-import { DisciplinapadraoService } from './../services/disciplinapadrao.service';
+import { Ies } from '../../components/classes/ies';
+import { IesService } from '../../provider/ies.service';
+import { DisciplinaService } from '../../provider/disciplina.service';
+import { DisciplinapadraoService } from '../../provider/disciplinapadrao.service';
 import { Http, Response } from '@angular/http';
 import { Component, OnInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
@@ -20,10 +20,10 @@ export class DisciplinasComponent implements OnInit {
   public disciplinas = [];
   public disciplinasPadrao = [];
 
-  public disciplina = {'id': 0, 'nome': '', 'cargaHoraria': 0};
+  public disciplina = {'id': null, 'nome': '', 'cargaHoraria': null, 'nomeDisciplinaPadrao': null, 'cargaHorariaDisciplinaPadrao': null};
   public disciplinaPosicaoArray = 0;
   public confirmacao = 0;
-  public disciplinaPadrao = {'id': 0, 'nome': '', 'cargaHoraria': 0};
+  public disciplinaPadrao = {'id': null, 'nome': '', 'cargaHoraria': null};
 
   public pagina = 1;
   public paginaPadrao = 1;
@@ -66,101 +66,135 @@ export class DisciplinasComponent implements OnInit {
   }
 
   desassocia(id: number, posicao: number) {
+    this.desassociaServico(id)
+    .limpaDisciplinaPadrao(posicao);
+  }
+
+  desassociaServico(id) {
     this.service.desassocia(id).subscribe();
-    this.cargaPagina();
+    return this;
   }
 
   associa(id: number, posicao: number) {
-    this.service.associa(id).subscribe();
-    this.service.obtemDisciplina(id).subscribe(res => this.disciplina = res),
-    this.disciplinas[posicao].idDisciplinaPadrao = this.disciplina.id,
-    this.disciplinas[posicao].nomeDisciplinaPadrao = this.disciplina.nome;
-    this.disciplinas[posicao].cargaHorariaDisciplinaPadrao = this.disciplina.cargaHoraria;
+    this.associaServico(id)
+    .associaObterDisciplina(id);
   }
 
+  associaServico(id) {
+    this.service.associa(id).subscribe();
+    return this;
+  }
 
+  associaObterDisciplina(id) {
+    this.service.obtemDisciplina(id).subscribe(function(res) {
+       this.disciplina = res;
+       console.log(this.disciplina);
+    });
+
+    return this;
+  }
 
   onChangeIes() {
     this.pagina = 1,
     this.paginaPadrao = 1,
     this.pesquisaPorNome = '',
     this.pesquisaPorNomePadrao = '',
-    this.disciplina = {'id': 0, 'nome': '', 'cargaHoraria': 0},
     this.disciplinaPosicaoArray = 0,
     this.confirmacao = 0,
-    this.disciplinaPadrao = {'id': 0, 'nome': '', 'cargaHoraria': 0},
     this.pesquisaPorNomePadrao = '',
-    this.disciplinasPadrao = [];
-    this.cargaPagina();
+    this.disciplinasPadrao = [],
+    this.anulaDisciplina()
+    .anulaDisciplinaPadrao()
+    .cargaPagina();
   }
 
   zeraParametros() {
-    this.disciplina = {'id': 0, 'nome': '', 'cargaHoraria': 0},
-    this.disciplinaPosicaoArray = 0,
-    this.confirmacao = 0,
-    this.disciplinaPadrao = {'id': 0, 'nome': '', 'cargaHoraria': 0},
-    this.pesquisaPorNomePadrao = '',
+    this.anulaDisciplina()
+    .anulaDisciplinaPadrao();
+    this.disciplinaPosicaoArray = 0;
+    this.confirmacao = 0;
+    this.pesquisaPorNomePadrao = '';
     this.disciplinasPadrao = [];
     return this;
   }
 
-  confirmaEdicao() {
+  confirmaEdicao(id: number, pos: number) {
     this.salvaDisciplina()
+    .associaObterDisciplina(id)
+    .mostraDisciplinaPosEdicao(pos)
+    .limpaConfirmacao();
+  }
+
+  mostraDisciplinaPosEdicao(pos: number) {
+    this.disciplinas[pos].nomeDisciplinaPadrao = this.disciplina.nomeDisciplinaPadrao;
+    this.disciplinas[pos].cargaHorariaDisciplinaPadrao = this.disciplina.cargaHorariaDisciplinaPadrao;
+    return this;
+  }
+
+  cancelaEdicao(pos: number) {
+    this
     .limpaConfirmacao()
+    .limpaDisciplinaPadrao(pos)
     .buildaDisciplina(this.disciplinaPadrao);
   }
 
   salvaDisciplina() {
     this.service.salvarDisciplina(this.disciplinas[this.disciplinaPosicaoArray]);
-    console.log('1');
+    console.log(this.disciplinaPosicaoArray);
     return this;
   }
 
   limpaConfirmacao() {
     this.confirmacao = 0;
-    console.log('2');
     return this;
   }
 
   limpaDisciplina() {
-    this.disciplina = {'id': 0, 'nome': '', 'cargaHoraria': 0};
+    this.anulaDisciplina()
+    .anulaDisciplinaPadrao();
     this.disciplinaPosicaoArray = 0;
     this.confirmacao = 0;
-    this.disciplinaPadrao = {'id': 0, 'nome': '', 'cargaHoraria': 0};
     this.pesquisaPorNomePadrao = '';
     this.disciplinasPadrao = [];
-    console.log('2');
     return this;
   }
 
   cargaPagina() {
-    if (this.pesquisaPorNome.length > 3) {
+    if (this.pesquisaPorNome.length > 2) {
       this.service.buscaPorNome(this.pesquisaPorNome, this.pagina - 1).subscribe(res => this.disciplinas = res);
     } else {
       this.service.obtemDisciplinas(this.iesSelecionada, this.pagina - 1).subscribe(res => this.disciplinas = res);
     }
-    console.log('3');
     return this;
   }
 
   cargaPaginaPadrao() {
-    if (this.pesquisaPorNomePadrao.length > 3) {
+    if (this.pesquisaPorNomePadrao.length > 2) {
       this.servicePadrao.buscaPorNome(this.pesquisaPorNomePadrao, this.paginaPadrao - 1).subscribe(res => this.disciplinasPadrao = res);
     } else {
       this.disciplinasPadrao = [];
     }
+    return this;
   }
 
   atribuirDisciplinaPadrao(disciplinaPadrao) {
     this.disciplinaPadrao = disciplinaPadrao,
     this.confirmacao = this.disciplina.id,
     this.buildaDisciplina(disciplinaPadrao);
+    return this;
   }
 
   buildaDisciplina(disciplinaPadrao) {
     this.disciplinas[this.disciplinaPosicaoArray].idDisciplinaPadrao = disciplinaPadrao.id,
     this.disciplinas[this.disciplinaPosicaoArray].nomeDisciplinaPadrao = disciplinaPadrao.nome,
     this.disciplinas[this.disciplinaPosicaoArray].cargaHorariaDisciplinaPadrao = disciplinaPadrao.cargaHoraria;
+    return this;
+  }
+
+  limpaDisciplinaPadrao(posicao) {
+    this.disciplinas[posicao].idDisciplinaPadrao = null,
+    this.disciplinas[posicao].nomeDisciplinaPadrao = null,
+    this.disciplinas[posicao].cargaHorariaDisciplinaPadrao = null;
     return this;
   }
 
@@ -188,5 +222,15 @@ export class DisciplinasComponent implements OnInit {
       this.paginaPadrao--,
       this.cargaPaginaPadrao();
     }
+  }
+
+  anulaDisciplina() {
+    this.disciplina = {'id': null, 'nome': '', 'cargaHoraria': null, 'nomeDisciplinaPadrao': null, 'cargaHorariaDisciplinaPadrao': null};
+    return this;
+  }
+
+  anulaDisciplinaPadrao() {
+    this.disciplinaPadrao = {'id': null, 'nome': '', 'cargaHoraria': null};
+    return this;
   }
 }

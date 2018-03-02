@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { IesService } from '../services/ies.service';
+import { IesService } from '../../provider/ies.service';
 
 import { Ies } from '../classes/ies';
 
@@ -16,7 +16,7 @@ export class IesComponent implements OnInit {
   public ies: Ies;
   public selecionado = 0;
   public pagina = 1;
-  public pesquisaPorNome = "";
+  public pesquisaPorNome = '';
 
   constructor(
     private service: IesService

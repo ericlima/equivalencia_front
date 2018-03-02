@@ -5,15 +5,15 @@ import { RoutingModule } from './app.router';
 
 import { AppComponent } from './app.component';
 
-import { CursosComponent } from './cursos/cursos.component';
-import { DisciplinasComponent } from './disciplinas/disciplinas.component';
-import { IesComponent } from './ies/ies.component';
+import { CursosComponent } from './components/cursos/cursos.component';
+import { DisciplinasComponent } from './components/disciplinas/disciplinas.component';
+import { IesComponent } from './components/ies/ies.component';
 
-import { DisciplinaService } from './services/disciplina.service';
-import { DisciplinapadraoService } from './services/disciplinapadrao.service';
-import { IesService } from './services/ies.service';
+import { DisciplinaService } from './provider/disciplina.service';
+import { DisciplinapadraoService } from './provider/disciplinapadrao.service';
+import { IesService } from './provider/ies.service';
 import { FormsModule } from '@angular/forms';
-import { CursoService } from './services/curso.service';
+import { CursoService } from './provider/curso.service';
 
 @NgModule({
   declarations: [

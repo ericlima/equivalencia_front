@@ -1,6 +1,6 @@
-import { IesComponent } from './ies/ies.component';
-import { DisciplinasComponent } from './disciplinas/disciplinas.component';
-import { CursosComponent } from './cursos/cursos.component';
+import { IesComponent } from './components/ies/ies.component';
+import { DisciplinasComponent } from './components/disciplinas/disciplinas.component';
+import { CursosComponent } from './components/cursos/cursos.component';
 import { AppComponent } from './app.component';
 import { Routes, RouterModule } from '@angular/router';
 
