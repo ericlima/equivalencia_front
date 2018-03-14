@@ -8,6 +8,7 @@ export const environment = {
 
   protocolo: 'http',
   servidor: 'localhost',
+  prefixo: '',
   porta: '4041'
 
 

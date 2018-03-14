@@ -1,4 +1,4 @@
 export class Disciplina {
-  id: number;  
+  id: number;
   nome: string;
 }

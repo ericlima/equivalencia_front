@@ -7,7 +7,13 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
 
-const urlbase = environment.protocolo + '://' + environment.servidor + ':' + environment.porta + '/disciplina';
+const urlbase =
+    environment.protocolo + '://' +
+    environment.servidor + ':' +
+    environment.porta + '/' +
+    environment.prefixo +
+    'disciplina';
+
 const urlDisciplinas = urlbase + '/ies/{ies}/list/{pagina}';
 const urlDisciplina = urlbase;
 const urlContaPaginas = urlbase + '/contapaginas';
