@@ -14,13 +14,15 @@ import { DisciplinapadraoService } from './provider/disciplinapadrao.service';
 import { IesService } from './provider/ies.service';
 import { FormsModule } from '@angular/forms';
 import { CursoService } from './provider/curso.service';
+import { LabsComponent } from './components/labs/labs.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CursosComponent,
     DisciplinasComponent,
-    IesComponent
+    IesComponent,
+    LabsComponent
   ],
   imports: [
     BrowserModule,
